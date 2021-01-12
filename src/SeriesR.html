@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="1.css">
+	<title>Series Circuit - Resistance Assistant</title>
+</head>
+
+<body>
+	<!--Top navigation bar-->
+	<ul>
+		<li><a id="home" href="SingleR.html">Resistance Assistant</a></li>
+		<li><a href="RAbout.html">About</a></li>
+		<li><a href="RFor.html">Reference</a></li>
+		<li><a id="active" href="SingleR.html">Calculator</a></li>
+	</ul>
+	<!--Calculator navigation bar-->
+	<ul>
+		<li><a class="calc" href="SingleR.html">Single</a></li>
+		<li><a class="calc" id="active" href="SeriesR.html">Series</a></li>
+		<li><a class="calc" href="ParallelR.html">Parallel</a></li>
+	</ul>
+
+	<br>
+	<img src="pic\news.png" width="320" height="180" alt="Series Circuit" class="center">
+	<br>
+	<!--Code selection-->
+	<table id="circuitselect">
+		<tr>
+			<b>
+			<th>1st Band</th>
+			<th>2nd Band</th>
+			<th>Multiplier</th>
+			</b>
+		</tr>
+		<tr>
+			<form name="colorselect">
+				<td>
+					<select name="band1" onchange="calcresist(this)">
+						<option value="0">Black</option>
+						<option value="1">Brown</option>
+						<option value="2">Red</option>
+						<option value="3">Orange</option>
+						<option value="4">Yellow</option>
+						<option value="5">Green</option>
+						<option value="6">Blue</option>
+						<option value="7">Violet</option>
+						<option value="8">Grey</option>
+						<option value="9">White</option>
+					</select>
+				</td>
+				<td>
+					<select name="band2" onchange="calcresist(this)">
+						<option value="0">Black</option>
+						<option value="1">Brown</option>
+						<option value="2">Red</option>
+						<option value="3">Orange</option>
+						<option value="4">Yellow</option>
+						<option value="5">Green</option>
+						<option value="6">Blue</option>
+						<option value="7">Violet</option>
+						<option value="8">Grey</option>
+						<option value="9">White</option>
+					</select>
+				</td>
+				<td>
+					<select name="band3" onchange="calcresist(this)"> 
+						<option value="0">Black</option>
+						<option value="1">Brown</option>
+						<option value="2">Red</option>
+						<option value="3">Orange</option>
+						<option value="4">Yellow</option>
+						<option value="5">Green</option>
+						<option value="6">Blue</option>
+						<option value="7">Violet</option>
+						<option value="8">Grey</option>
+						<option value="9">White</option>
+					</select>
+				</td>
+				<td>
+					<p>Resistor 1: </p>
+				</td>
+				<td class="fixed">
+					<p id="resistorvalue1" >0 &ohm;</p>
+				</td>
+			</form>
+		</tr>
+	</table>
+
+	<table id="circuitselect">
+		<tr>
+			<form name="colorselect2">
+				<td>
+					<select name="band1" onchange="calcresist2(this)">
+						<option value="0">Black</option>
+						<option value="1">Brown</option>
+						<option value="2">Red</option>
+						<option value="3">Orange</option>
+						<option value="4">Yellow</option>
+						<option value="5">Green</option>
+						<option value="6">Blue</option>
+						<option value="7">Violet</option>
+						<option value="8">Grey</option>
+						<option value="9">White</option>
+					</select>
+				</td>
+				<td>
+					<select name="band2" onchange="calcresist2(this)">
+						<option value="0">Black</option>
+						<option value="1">Brown</option>
+						<option value="2">Red</option>
+						<option value="3">Orange</option>
+						<option value="4">Yellow</option>
+						<option value="5">Green</option>
+						<option value="6">Blue</option>
+						<option value="7">Violet</option>
+						<option value="8">Grey</option>
+						<option value="9">White</option>
+					</select>
+				</td>
+				<td>
+					<select name="band3" onchange="calcresist2(this)">
+						<option value="0">Black</option>
+						<option value="1">Brown</option>
+						<option value="2">Red</option>
+						<option value="3">Orange</option>
+						<option value="4">Yellow</option>
+						<option value="5">Green</option>
+						<option value="6">Blue</option>
+						<option value="7">Violet</option>
+						<option value="8">Grey</option>
+						<option value="9">White</option>
+					</select>
+				</td>
+				<td>
+					<p>Resistor 2: </p>
+				</td>
+				<td class="fixed">
+					<p id="resistorvalue2" >0 &ohm;</p>
+				</td>
+			</form>
+		</tr>
+	</table>
+	<p id="totalvalue">Total Resistance: 0 &ohm;</p>
+
+	<table id="vi">
+		<tr>
+			<form name="voltinput">
+				<td class="parafixed">
+					Potential Difference(V):
+				</td>
+				<td>	
+					<input id="voltage" type="text" name="volt">
+				</td>
+				<td class="parafixed">
+					Current(I):
+				</td>
+				<td class="fixed" id="current">
+					0 A
+				</td>
+			</form>	
+		</tr>
+	</table>
+	<br>
+
+	<button onclick="totalresist(resistorvalue1,resistorvalue2),calcvi()">Calculate</button>
+
+
+
+	<script type="text/javascript">
+		function calcresist(input) {
+			first = document.colorselect.band1.value;
+			sec = document.colorselect.band2.value;
+			mult = document.colorselect.band3.value;
+
+			resistvalue1 = first + sec;
+
+			for (var i=0; i<mult; i++){
+				resistvalue1 += "0";
+			}
+
+			resistorvalue1 = space(resistvalue1);
+
+			resistorvalue1 += " \u2126";
+
+			document.getElementById('resistorvalue1').innerHTML = resistorvalue1;
+		}
+
+		function calcresist2(input) {
+			first = document.colorselect2.band1.value;
+			sec = document.colorselect2.band2.value;
+			mult = document.colorselect2.band3.value;
+
+			resistvalue2 = first + sec;
+
+			for (var i=0; i<mult; i++){
+				resistvalue2 += "0";
+			}
+
+			resistorvalue2 = space(resistvalue2);
+
+			resistorvalue2 += " \u2126";
+
+			document.getElementById('resistorvalue2').innerHTML = resistorvalue2;
+		}
+
+		function totalresist(x,y) {
+			var x = resistvalue1;
+			var y = resistvalue2;
+			var totalvalue = parseInt(x) + parseInt(y);
+
+			var totalsvalue = totalvalue.toString();
+
+			totalsvalue = space(totalsvalue);
+
+			document.getElementById('totalvalue').innerHTML = "Total Resistance: " + totalsvalue + " \u2126";
+
+			//calc current
+			volt = document.voltinput.volt.value;
+
+			var current = parseInt(volt) / totalvalue;
+
+			var scurrent = current.toFixed(2);
+
+			scurrent = space(scurrent);
+
+			document.getElementById('current').innerHTML = scurrent + " A";
+
+		}
+
+		function space(x) {
+			return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+	</script>
+
+</body>	
+</html>
