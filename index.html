@@ -1,0 +1,124 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="1.css">
+	<title>Single Resistor - ResiC</title>
+</head>
+
+<body>
+	<!--Top navigation bar-->
+	<ul>
+		<li><a id="home" href="SingleR.html">ResiC</a></li>
+		<li><a href="RAbout.html">About</a></li>
+		<li><a href="RFor.html">Reference</a></li>
+		<li><a id="active" href="SingleR.html">Calculator</a></li>
+	</ul>
+	<!--Calculator navigation bar-->
+	<ul>
+		<li><a class="calc" id="active" href="SingleR.html">Single</a></li>
+		<li><a class="calc" href="SeriesR.html">Series</a></li>
+		<li><a class="calc" href="ParallelR.html">Parallel</a></li>
+	</ul>
+
+	<br>
+	<br>
+	<img src="pic\resistor.png" width="322" height="125" alt="Resistor" class="center">
+	<br>
+	<table id="codeselect">
+		<tr>
+			<b>
+			<th>1st Band</th>
+			<th>2nd Band</th>
+			<th>Multiplier</th>
+			<th>Tolerance</th>
+			</b>
+		</tr>
+		<tr>
+			<form name="colorselect">
+				<td>
+					<select name="band1" onchange="calcresist(this)">
+						<option value="0">Black</option>
+						<option value="1">Brown</option>
+						<option value="2">Red</option>
+						<option value="3">Orange</option>
+						<option value="4">Yellow</option>
+						<option value="5">Green</option>
+						<option value="6">Blue</option>
+						<option value="7">Violet</option>
+						<option value="8">Grey</option>
+						<option value="9">White</option>
+					</select>
+				</td>
+				<td>
+					<select name="band2" onchange="calcresist(this)">
+						<option value="0">Black</option>
+						<option value="1">Brown</option>
+						<option value="2">Red</option>
+						<option value="3">Orange</option>
+						<option value="4">Yellow</option>
+						<option value="5">Green</option>
+						<option value="6">Blue</option>
+						<option value="7">Violet</option>
+						<option value="8">Grey</option>
+						<option value="9">White</option>
+					</select>
+				</td>
+				<td>
+					<select name="band3" onchange="calcresist(this)">
+						<option value="0">Black</option>
+						<option value="1">Brown</option>
+						<option value="2">Red</option>
+						<option value="3">Orange</option>
+						<option value="4">Yellow</option>
+						<option value="5">Green</option>
+						<option value="6">Blue</option>
+						<option value="7">Violet</option>
+						<option value="8">Grey</option>
+						<option value="9">White</option>
+					</select>
+				</td>
+				<td>
+					<select name="band4" onchange="calcresist(this)">
+						<option value="10">Gold</option>
+						<option value="11">Sliver</option>
+					</select>
+				</td>
+			</form>
+		</tr>
+	</table>
+	<br>
+	<p>Resistance: </p>
+	<p id="resistorvalue" >0 &ohm; &plusmn;5%</p>
+
+	<script type="text/javascript">
+		function calcresist(input) {
+			first = document.colorselect.band1.value;
+			sec = document.colorselect.band2.value;
+			mult = document.colorselect.band3.value;
+			tol = document.colorselect.band4.value;
+
+			resistvalue = first + sec;
+
+			for (var i=0; i<mult; i++){
+				resistvalue += "0";
+			}
+
+			resistvalue = space(resistvalue);
+
+			resistvalue += " \u2126 \u00B1";
+
+			if (tol == "10")
+				resistvalue += "5%";
+			else if (tol == "11")
+				resistvalue += "10%";
+
+			document.getElementById('resistorvalue').innerHTML = resistvalue;
+		}
+
+		function space(x) {
+			return x.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+	</script>
+
+</body>	
+</html>
